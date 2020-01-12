@@ -62,22 +62,24 @@ class bookNode:
       node = q.queue[0]  
       if (node.bookId == x):
         if node.avCntr > 0:  
-          output.write("Book id {} is available for checkout".format(x))
+          output.write("\n\nBook id {} is available for checkout".format(x))
+          return 0
         else:
-          output.write("All copies of book id {} have been checked out".format(x))  
+          output.write("\n\nAll copies of book id {} have been checked out".format(x)) 
+          return 0 
       q.get() 
       if (node.left != None): 
         q.put(node.left)  
       if (node.right != None): 
         q.put(node.right) 
-    output.write("Book id {} does not exist".format(x))
+    output.write("\n\nBook id {} does not exist".format(x))
     output.close()
 
   def _notIssued(self, bkNode):
     ''' Inner function to get books which are not issued yet.
     '''
     output = open('outputPS6.txt', 'a+')
-    output.write("\nList of books not issued:\n")
+    output.write("\n\nList of books not issued:\n")
     q = Queue()
     q.put(bkNode)  
     while (q.empty() == False): 
@@ -95,13 +97,13 @@ class bookNode:
     ''' Inner function to get books which are out of stock
     '''
     output = open('outputPS6.txt', 'a+')
-    output.write("\nAll available copies of the below books have been checked out:\n")
+    output.write("\n\nAll available copies of the below books have been checked out:\n")
     q = Queue()
     q.put(eNode)  
     while (q.empty() == False): 
-      node = q.queue[0]  
+      node = q.queue[0]
       if (node.avCntr == 0):
-        output.writelines(node.bookId)
+        output.writelines(str(node.bookId))
       q.get()
       if (node.left != None):
         q.put(node.left)
